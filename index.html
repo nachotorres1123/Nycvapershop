@@ -51,10 +51,12 @@
                            <a class="nav-item nav-link" href="index.html">Inicio</a>
                            <a class="nav-item nav-link" href="collection.html">E Liquid </a>
                            <a class="nav-item nav-link" href="shoes.html">Vaper</a>
+                           <a class="nav-item nav-link" href="liquidos.html">Líquidos</a>
+                          
                            <a class="nav-item nav-link" href="racing boots.html">Accesorios</a>
                            <a class="nav-item nav-link" href="contact.html">Contacto</a>
-                           <a class="nav-item nav-link last" href="#"><img src="images/search_icon.png"></a>
-                           <a class="nav-item nav-link last" href="contact.html"><img src="images/shop_icon.png"></a>
+                           <a class="nav-item nav-link last" href="#"><img src="images/search_icon.png">Buscar</a>
+                           <a class="nav-item nav-link last" href="contact.html"><img src="images/shop_icon.png">Mi Orden</a>
                         </div>
                     </div>
                     </nav>
@@ -376,50 +378,54 @@
     	</div>
     </div>
    	<!-- New Arrivals section end -->
-   	<!-- contact section start -->
+  <!-- contact section start -->
     <div class="layout_padding contact_section">
-    	<div class="container">
-    		<h1 class="new_text"><strong>Contactanos </strong></h1>
-    	</div>
-    	<div class="container-fluid ram">
-    		<div class="row">
-    			<div class="col-md-6">
-    				<div class="email_box">
-                    <div class="input_main">
-                       <div class="container">
-                          <form action="/action_page.php">
-                            <div class="form-group">
-                              <input type="text" class="email-bt" placeholder="Nombre" name="name">
+        <div class="container">
+            <h1 class="new_text"><strong>Contactanos</strong></h1>
+        </div>
+        <div class="container-fluid ram">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="email_box">
+                        <div class="input_main">
+                            <div class="container">
+                                <form action="javascript:void(0);" onsubmit="sendMessage()">
+                                    <div class="form-group">
+                                        <input type="text" class="email-bt" placeholder="Nombre" name="name" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="email-bt" placeholder="Teléfono" name="phone" id="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="email-bt" placeholder="Email" name="Email" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="massage-bt" placeholder="Mensaje" rows="5" id="message"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                       
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group">
-                              <input type="text" class="email-bt" placeholder="Teléfono" name="phone">
-                            </div>
-                            <div class="form-group">
-                              <input type="text" class="email-bt" placeholder="Email" name="Email">
-                            </div>
-                            
-                            <div class="form-group">
-                                <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
-                            </div>
-                          </form>   
-                       </div> 
-                       <div class="send_btn">
-                        <button class="main_bt">Send</button>
-                       </div>                   
+                        </div>
                     </div>
-    		</div>
-    			</div>
-    			<div class="col-md-6">
-    				<div class="shop_banner">
-    					<div class="our_shop">
-    						<button class="out_shop_bt">cambiar 1</button>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="shop_banner">
+                        <div class="our_shop">
+                            <button class="out_shop_bt">Cambiar 1</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-   	<!-- contact section end -->
+    <!-- contact section end -->
+
+
 	<!-- section footer start -->
     <div class="section_footer">
     	<div class="container">
@@ -437,10 +443,10 @@
     				<div class="col-sm-6 col-lg-3">
     					<div class="social_icon">
     						<ul>
-    							<li><a href="#"><img src="images/fb-icon.png"></a></li>
-    							<li><a href="#"><img src="images/twitter-icon.png"></a></li>
-    							<li><a href="#"><img src="images/in-icon.png"></a></li>
-    							<li><a href="#"><img src="images/google-icon.png"></a></li>
+    							    							<li><a href="https://www.facebook.com/groups/ntdesweb/?ref=share&mibextid=NSMWBT "><img src="images/fb-icon.png"></a></li>
+    							<li><a href="https://wa.me/message/KO6LSODFP557B1"><img src="images/wh-logo.png" width="34" height="24" ></a></li>
+    							    							<li><a href="https://www.instagram.com/nycvapershop"><img src="images/in-icon.png"></a></li>
+    							<li><a href="https://maps.app.goo.gl/VjS28oXkUDetCwgd9"><img src="images/google-icon.png"></a></li>
     						</ul>
     					</div>
     				</div>
@@ -497,6 +503,9 @@
 
 
       <!-- Javascript files-->
+      <script src="js/enviar.js"></script>
+<!-- Incluye la biblioteca de JavaScript de Bootstrap (opcional) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
