@@ -1,12 +1,14 @@
 <?php
-// Conexión a la base de datos (reemplaza estos valores con los de tu servidor)
-$servername = "localhost";
-$username = "tu_usuario";
-$password = "tu_contraseña";
-$dbname = "tu_base_de_datos";
+// Conexión a la base de datos
+$servername = "containers-us-west-32.railway.app";
+$username = "root"; // Cambia esto al nombre de usuario correcto
+$password = "mxMQ1TifyIZUekk9epnI"; // Cambia esto a la contraseña correcta
+$dbname = "usuarionuevos"; // Cambia esto al nombre de tu base de datos
+$port = 6536;
+$protocol = "TCP";
 
 // Crear una conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Verificar la conexión
 if ($conn->connect_error) {
