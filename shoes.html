@@ -456,6 +456,36 @@ $('#myCarousel').carousel({
     <h2>Carrito de Compras</h2>
     <!-- Los productos agregados se mostrarán aquí -->
 </div>
+<!-- Script para agregar productos al carrito -->
+<script>
+    // Array para almacenar los productos en el carrito
+    const carrito = [];
+
+    // Función para agregar un producto al carrito
+    function agregarAlCarrito(nombre, precio) {
+        const producto = {
+            nombre: nombre,
+            precio: precio
+        };
+
+        carrito.push(producto);
+
+        // Actualizar la vista del carrito
+        mostrarCarrito();
+    }
+
+    // Función para mostrar el contenido del carrito
+    function mostrarCarrito() {
+        const carritoContainer = document.getElementById("carrito");
+        carritoContainer.innerHTML = "<h2>Carrito de Compras</h2>";
+
+        carrito.forEach(producto => {
+            carritoContainer.innerHTML += `
+                <p>${producto.nombre} - $${producto.precio}</p>
+            `;
+        });
+    }
+</script>
 
    </body>
 </html>
