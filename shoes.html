@@ -456,7 +456,7 @@ $('#myCarousel').carousel({
     <h2>Carrito de Compras</h2>
     <!-- Los productos agregados se mostrarán aquí -->
 </div>
-<!-- Script para agregar productos al carrito -->
+	   <!-- Script para agregar productos al carrito -->
 <script>
     // Array para almacenar los productos en el carrito
     const carrito = [];
@@ -485,7 +485,13 @@ $('#myCarousel').carousel({
             `;
         });
     }
+
+    // Llamar a la función mostrarCarrito al cargar la página
+    window.onload = function () {
+        mostrarCarrito();
+    };
 </script>
+
 
    </body>
 </html>
