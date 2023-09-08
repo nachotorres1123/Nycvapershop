@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>NyC Vaper Shop 💨 - Shoes</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      
+      <link rel="stylesheet" href="css/carrito.css">
+
+
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+      
+      <body>
+    <h1>Carrito de Compras</h1>
+    <div id="productos-carrito">
+        <!-- Aquí se mostrarán los productos agregados al carrito -->
+    </div>
+    <button id="vaciar-carrito">Vaciar Carrito</button>
+
+    <!-- Agrega un botón para volver a la página anterior o seguir comprando -->
+    <a href="shoes.html">Seguir Comprando</a>
+
+    <!-- Agrega tus scripts JavaScript aquí -->
+
+    <script>
+        // Obtén el carrito de compras desde el almacenamiento local
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+        // Función para mostrar los productos en el carrito
+        function mostrarProductosEnCarrito() {
+            const productosCarrito = document.getElementById("productos-carrito");
+            productosCarrito.innerHTML = "";
+
+            carrito.forEach(producto => {
+                const productoElement = document.createElement("div");
+                productoElement.innerHTML = `
+                    <p>${producto.nombre} - $${producto.precio}</p>
+                    <input type="number" value="${producto.cantidad}" min="1">
+                    <button onclick="aumentarCantidad(${producto.id})">+</button>
+                    <button onclick="disminuirCantidad(${producto.id})">-</button>
+                    <button onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                `;
+                productosCarrito.appendChild(productoElement);
+            });
+        }
+
+        // Función para aumentar la cantidad de un producto
+        function aumentarCantidad(productoId) {
+            // Encuentra el producto en el carrito y aumenta su cantidad
+            const producto = carrito.find(item => item.id === productoId);
+            producto.cantidad++;
+            // Actualiza el carrito en el almacenamiento local
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            // Vuelve a mostrar los productos en el carrito
+            mostrarProductosEnCarrito();
+        }
+
+        // Función para disminuir la cantidad de un producto
+        function disminuirCantidad(productoId) {
+            // Encuentra el producto en el carrito y disminuye su cantidad (si es mayor que 1)
+            const producto = carrito.find(item => item.id === productoId);
+            if (producto.cantidad > 1) {
+                producto.cantidad--;
+                // Actualiza el carrito en el almacenamiento local
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                // Vuelve a mostrar los productos en el carrito
+                mostrarProductosEnCarrito();
+            }
+        }
+
+        // Función para eliminar un producto del carrito
+        function eliminarProducto(productoId) {
+            // Encuentra el índice del producto en el carrito
+            const index = carrito.findIndex(item => item.id === productoId);
+            if (index !== -1) {
+                // Elimina el producto del carrito
+                carrito.splice(index, 1);
+                // Actualiza el carrito en el almacenamiento local
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                // Vuelve a mostrar los productos en el carrito
+                mostrarProductosEnCarrito();
+            }
+        }
+
+        // Función para vaciar completamente el carrito
+        document.getElementById("vaciar-carrito").addEventListener("click", () => {
+            // Vacía el carrito
+            carrito.length = 0;
+            // Actualiza el carrito en el almacenamiento local
+            localStorage.removeItem("carrito");
+            // Vuelve a mostrar los productos en el carrito (estará vacío)
+            mostrarProductosEnCarrito();
+        });
+
+        // Inicializa la página mostrando los productos en el carrito
+        mostrarProductosEnCarrito();
+    </script>
+</body>
+</html>

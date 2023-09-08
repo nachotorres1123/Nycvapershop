@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- Site Metas -->
+    <title>NyC Vaper Shop 💨 - Shoes</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif">
+    
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    
+    <!-- Owl Carousel Stylesheets -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    
+    <!-- Fancybox Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    
+    <!-- Custom Carrito CSS -->
+    <link rel="stylesheet" href="css/carrito.css">
+</head>
+<body class="main-layout">
+    <!-- Header Section Start -->
+    <div class="header_section header_main">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="logo"><a href="#"><img src="images/logo.png"></a></div>
+                </div>
+                <div class="col-sm-9">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-item nav-link" href="index.html">Inicio</a>
+                                <a class="nav-item nav-link" href="collection.html">E Liquid</a>
+                                <a class="nav-item nav-link" href="shoes.html">Vaper</a>
+                                <a class="nav-item nav-link" href="liquidos.html">Líquidos</a>
+                                <a class="nav-item nav-link" href="racing boots.html">Accesorios</a>
+                                <a class="nav-item nav-link" href="contact.html">Contacto</a>
+                                <a class="nav-item nav-link" href="#"><img src="images/search_icon.png">Buscar</a>
+                                <a class="nav-item nav-link" href="contact.html"><img src="images/shop_icon.png">Mi Orden</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Section End -->
+    
+    <!-- Contenedor del carrito mejorado -->
+    <div id="carrito" class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="card-title">Tu Carrito de Compras</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="productos-carrito">
+                            <!-- Aquí se mostrarán los productos agregados -->
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Total:</h4>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <!-- Mostrar contador de artículos en el carrito -->
+                                <span id="contador-carrito" class="badge badge-primary">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="cerrar-carrito btn btn-danger mt-2 float-right" onclick="cerrarCarrito()">&times; Cerrar Carrito</button>
+            </div>
+            <button id="abrir-carrito" onclick="mostrarCarrito()">Abrir Carrito</button>
+        </div>
+    </div>
+
+    <!-- Script para agregar productos al carrito -->
+    <script>
+        // Array para almacenar los productos en el carrito
+        const carrito = [];
+        let contadorCarrito = 0; // Contador de artículos en el carrito
+
+        function agregarAlCarrito(nombre, precio) {
+            // Verificar si el producto ya está en el carrito
+            const productoExistente = carrito.find(item => item.nombre === nombre);
+
+            if (productoExistente) {
+                // Si el producto ya está en el carrito, aumenta la cantidad
+                productoExistente.cantidad++;
+            } else {
+                // Si es un nuevo producto, agrégalo al carrito
+                const producto = {
+                    nombre: nombre,
+                    precio: precio,
+                    cantidad: 1 // Comienza con una cantidad de 1
+                };
+                carrito.push(producto);
+            }
+
+            contadorCarrito++; // Incrementar el contador de artículos
+
+            // Actualizar el contador de artículos en el carrito
+            const contadorCarritoElement = document.getElementById("contador-carrito");
+            contadorCarritoElement.innerText = contadorCarrito;
+
+            // Actualizar el carrito en el almacenamiento local
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+
+            // Actualizar la vista del carrito
+            mostrarCarrito();
+        }
+
+        // Función para mostrar el contenido del carrito
+        function mostrarCarrito() {
+            const carritoContainer = document.getElementById("productos-carrito");
+            carritoContainer.innerHTML = ""; // Limpiar el contenido actual del contenedor
+
+            carrito.forEach(producto => {
+                // Crear elementos HTML para mostrar los productos
+                const productoElement = document.createElement("div");
+                productoElement.className = "producto-carrito";
+                productoElement.innerHTML = `
+                    <p>${producto.nombre} - $${producto.precio}</p>
+                `;
+
+                // Agregar el producto al contenedor
+                carritoContainer.appendChild(productoElement);
+            });
+        }
+
+        // Función para cerrar el carrito
+        function cerrarCarrito() {
+            const carrito = document.getElementById("carrito");
+            carrito.style.display = "none";
+        }
+
+        // Función para mostrar/abrir el carrito
+        function mostrarCarrito() {
+            const carrito = document.getElementById("carrito");
+            carrito.style.display = "block";
+        }
+        
+        function mostrarCarrito() {
+            // Redirigir al usuario a la página de carrito de compras
+            window.location.href = "carritodecompras.html"; // Reemplaza "carritodecompras.html" con la URL correcta de tu página de carrito
+        }
+    </script>
+
+    <!-- New Arrivals section start -->
+    <div class="layout_padding gallery_section">
+        <div class="container"> 
+            <a href="shoes.html"><h1>Vapers </h1></a>
+            <div class="row">
+                <!-- Aquí van tus productos con botones para agregar al carrito -->
+                <!-- Ejemplo de un producto -->
+                <div class="col-sm-4">
+                    <div class="best_shoes">
+                        <p class="best_text">Aegis T200 </p>
+                        <div class="shoes_icon"><img src="images/aegist200.png"></div>
+                        <div class="star_text">
+                            <div class="left_part">
+                                <ul>
+                                    <li><a href="#"><img src="images/star-icon.png"></a></li>
+                                    <li><a href="#"><img src="images/star-icon.png"></a></li>
+                                    <li><a href="#"><img src="images/star-icon.png"></a></li>
+                                    <li><a href="#"><img src="images/star-icon.png"></a></li>
+                                    <li><a href="#"><img src="images/star-icon.png"></a></li>
+                                </ul>
+                            </div>
+                            <div class="right_part">
+                                <div class="shoes_price">$ <span style="color: #ff4e5b;">60</span></div>
+                                <button class="agregar-carrito-button" onclick="agregarAlCarrito('Aegis T200', 60)">Agregar al Carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin del ejemplo de un producto -->
+            </div>
+            <div class="row">
+                <!-- Agrega más productos aquí -->
+            </div>
+            <div class="buy_now_bt">
+                <button class="buy_text" onclick="openWhatsApp()">Compra Ya</button> 
+            </div>
+        </div>
+    </div>
+    <!-- New Arrivals section end -->
+
+    <!-- Section Footer Start -->
+    <div class="section_footer">
+        <div class="container">
+            <div class="mail_section">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-2">
+                        <div><a href="#">Prueba 003<img src="images/footer-logomio.png"></a></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-2">
+                        <div class="footer-logo"><img src="images/phone-icon.png"><span class="map_text">+1 829 584-1402</span></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="footer-logo"><img src="images/email-icon.png"><span class="map_text">Ntdesweb@gmail.com</span></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="social_icon">
+                            <ul>
+                                <li><a href="https://www.facebook.com/groups/ntdesweb/?ref=share&mibextid=NSMWBT"><img src="images/fb-icon.png"></a></li>
+                                <li><a href="https://wa.me/message/KO6LSODFP557B1"><img src="images/wh-logo.png" width="34" height="24"></a></li>
+                                <li><a href="https://www.instagram.com/nycvapershop"><img src="images/in-icon.png"></a></li>
+                                <li><a href="https://maps.app.goo.gl/VjS28oXkUDetCwgd9"><img src="images/google-icon.png"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </div> 
+            <div class="footer_section_2">
+                <div class="row">
+                    <div class="col-sm-4 col-lg-2">
+                        <p class="dummy_text"> ¡No te quedes atrás en la experiencia del vapeo! En @Nycvapershop, te ofrecemos los mejores productos y sabores para satisfacer tus deseos. ¡Explora nuestro catálogo y únete a la comunidad de vapeadores satisfechos hoy mismo! Im8</p>
+                    </div>
+                    <div class="col-sm-4 col-lg-2">
+                        <h2 class="shop_text">Dirección</h2>
+                        <div class="image-icon"><img src="images/map-icon.png"><span class="pet_text">Av Las Palmas #7 Santo Domingo Oeste Rep.Dom</span></div>
+                    </div>
+                    <div class="col-sm-4 col-md-6 col-lg-3">
+                        <h2 class="shop_text">NyC Vaper Shop</h2>
+                        <div class="delivery_text">
+                            <ul>
+                                <li>Envíos</li>
+                                <li>Noticias</li>
+                                <li>Ayuda</li>
+                                <li>Pago Seguro</li>
+                                <li>Contactos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <h2 class="adderess_text">Productos</h2>
+                        <div class="delivery_text">
+                            <ul>
+                                <li>Precios</li>
+                                <li>Productos Nuevos</li>
+                                <li>Más Vendidos</li>
+                                <li>Soporte Al Usuario</li>
+                                <li>Cambiar</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-2">
+                        <h2 class="adderess_text">Suscribirse para Nuevos productos y Ofertas</h2>
+                        <div class="form-group">
+                            <input type="text" class="enter_email" placeholder="Enter Your email" name="Name">
+                        </div>
+                        <button class="subscribr_bt">Suscribir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section Footer End -->
+
+    <!-- Copyright Section -->
+    <div class="copyright">2023 Todos Los Derechos Reservados. <a href="https://www.instagram.com/djnachord">Ntdesweb</a></div>
+
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <!-- Sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- Javascript -->
+    <script src="js/owl.carousel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $('#myCarousel').carousel({
+                interval: false
+            });
+
+            // Scroll slides on swipe for touch-enabled devices
+
+            $("#myCarousel").on("touchstart", function(event){
+
+                var yClick = event.originalEvent.touches[0].pageY;
+                $(this).one("touchmove", function(event){
+
+                    var yMove = event.originalEvent.touches[0].pageY;
+                    if( Math.floor(yClick - yMove) > 1 ){
+                        $(".carousel").carousel('next');
+                    }
+                    else if( Math.floor(yClick - yMove) < -1 ){
+                        $(".carousel").carousel('prev');
+                    }
+                });
+                $(".carousel").on("touchend", function(){
+                    $(this).off("touchmove");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
